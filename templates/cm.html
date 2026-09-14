@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مقابلة شخصية احترافية | محاكي المقابلات الواقعي</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-dark: #1e293b;
+            --accent-color: #2563eb;
+            --saudi-gold: #c59b27;
+            --saudi-gold-hover: #b08922;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #334155;
+        }
+        body {
+            font-family: 'Cairo', Tahoma, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+        }
+
+        /* تنسيق الهيدر المتسق مع المنصة */
+        .main-header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--primary-dark);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .btn-gold {
+            background-color: var(--saudi-gold);
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 2px 5px rgba(197, 155, 39, 0.3);
+        }
+        .btn-gold:hover {
+            background-color: var(--saudi-gold-hover);
+            transform: translateY(-1px);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .masthead {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .masthead h1 {
+            color: var(--primary-dark);
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+        .masthead span {
+            color: #64748b;
+            font-size: 16px;
+        }
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .field-label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: var(--primary-dark);
+            font-size: 16px;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 15px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus, textarea:focus {
+            border-color: var(--accent-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        button.primary {
+            background-color: var(--accent-color);
+            color: #fff;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s, transform 0.2s;
+        }
+        button.primary:hover {
+            background-color: #1d4ed8;
+            transform: translateY(-2px);
+        }
+        .hidden {
+            display: none !important;
+        }
+        .badge-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 600;
+        }
+        .progress-track {
+            background: #e2e8f0;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+        .progress-fill {
+            background: var(--accent-color);
+            height: 100%;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+        .interviewer-tag {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 12px;
+        }
+        .avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-color);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+        }
+        .interviewer-meta .name {
+            font-weight: bold;
+            color: var(--primary-dark);
+            font-size: 16px;
+        }
+        .interviewer-meta .role {
+            font-size: 13px;
+            color: #64748b;
+        }
+        .question-box {
+            font-size: 19px;
+            font-weight: 600;
+            color: var(--primary-dark);
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            border-right: 5px solid var(--accent-color);
+            margin-bottom: 20px;
+            line-height: 1.7;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .answer-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .char-note {
+            font-size: 13px;
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .submit-btn {
+            background-color: var(--primary-dark);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: #0f172a;
+        }
+        .score-hero {
+            text-align: center;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: #fff;
+            padding: 40px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .score-hero .num {
+            font-size: 60px;
+            font-weight: bold;
+            color: #60a5fa;
+            margin: 10px 0;
+        }
+        .feedback-block {
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+        .live-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: #22c55e;
+            border-radius: 50%;
+            margin-left: 5px;
+            box-shadow: 0 0 0 rgba(34, 197, 94, 0.4);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر الموحد -->
+    <header class="main-header">
+        <nav class="navbar">
+            <a href="/" class="logo"><i class="fa-solid fa-id-badge"></i> المنصة المهنية</a>
+            <div class="nav-actions">
+                <a href="/" style="text-decoration: none; color: var(--accent-color); font-weight: 600; display: inline-flex; align-items: center; gap: 5px;"><i class="fa-solid fa-arrow-right"></i> العودة للرئيسية</a>
+            
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="masthead">
+            <h1>مقابلة شخصية احترافية</h1>
+            <span><span class="live-indicator"></span> محاكاة حية ومباشرة للجنة التوظيف لاختبار جاهزيتك</span>
+        </div>
+
+        <!-- شاشة الإعداد والبداية -->
+        <div id="screen-setup" class="card">
+            <div style="text-align: center; margin-bottom: 25px;">
+                <i class="fa-solid fa-handshake-angle" style="font-size: 45px; color: var(--accent-color); margin-bottom: 15px;"></i>
+                <h3 style="color: var(--primary-dark); margin-bottom: 10px;">أهلاً بك في غرفة المقابلات الافتراضية</h3>
+                <p style="color: #64748b; line-height: 1.6;">
+                    سنضعك في تجربة حقيقية تحاكي أسئلة لجان المقابلات الفعلية في كبرى الشركات. أدخل المسمى الوظيفي المستهدف لنبدأ الجلسة فوراً.
+                </p>
+            </div>
+            <label class="field-label" for="job-input"><i class="fa-solid fa-briefcase"></i> ما هي الوظيفة التي تتقدم لها؟</label>
+            <input type="text" id="job-input" placeholder="مثال: أخصائي موارد بشرية، مبرمج Python، مدير مشاريع..." autocomplete="off">
+            <button class="primary" id="start-btn"><i class="fa-solid fa-play"></i> بدء المقابلة الافتراضية الآن</button>
+            <div id="setup-error" style="color: #ef4444; margin-top: 10px; font-size: 14px; text-align: center; font-weight: 600;"></div>
+        </div>
+
+        <!-- شاشة أسئلة المقابلة (تفاعلية وحقيقية) -->
+        <div id="screen-interview" class="card hidden">
+            <div class="badge-row">
+                <div class="role-badge"><i class="fa-solid fa-tag"></i> الوظيفة المستهدفة: <b id="role-name-tag" style="color: var(--accent-color);"></b></div>
+                <div class="role-badge" id="q-counter">السؤال 1 من 8</div>
+            </div>
+            <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:12.5%"></div></div>
+
+            <div class="interviewer-tag">
+                <div class="avatar"><i class="fa-solid fa-user-tie"></i></div>
+                <div class="interviewer-meta">
+                    <div class="name">لجنة المقابلات والتقييم المهني</div>
+                    <div class="role">مدير التوظيف المباشر</div>
+                </div>
+            </div>
+
+            <div class="question-box" id="question-box">جاري طرح السؤال...</div>
+
+            <label class="field-label" style="font-size: 14px; color: #64748b;"><i class="fa-solid fa-pen-nib"></i> إجابتك (تحدث كأنك في مقابلة حقيقية):</label>
+            <textarea id="answer-input" rows="4" placeholder="اكتب إجابتك الواضحة والمدعومة بالأمثلة المهنية..."></textarea>
+            
+            <div class="answer-footer">
+                <span class="char-note"><i class="fa-solid fa-circle-info"></i> الإجابات المفصلة ترفع نسبة القبول في التقييم النهائي</span>
+                <button class="submit-btn" id="submit-btn">إرسال والانتقال للسؤال التالي <i class="fa-solid fa-arrow-left"></i></button>
+            </div>
+            <div id="interview-error" style="color: #ef4444; margin-top: 10px; font-size: 14px; font-weight: 600;"></div>
+        </div>
+
+        <!-- شاشة النتائج والتقييم النهائي -->
+        <div id="screen-results" class="hidden">
+            <div class="score-hero">
+                <i class="fa-solid fa-award" style="font-size: 50px; color: #60a5fa; margin-bottom: 10px;"></i>
+                <div style="font-size: 18px; font-weight: 600;">تقرير تقييم الأداء النهائي للمقابلة</div>
+                <div class="num" id="final-score">90<span>/100</span></div>
+                <div id="final-verdict" style="font-size: 18px; color: #cbd5e1;">أداء احترافي متميز! لقد اجتزت المقابلة بنجاح باهر.</div>
+            </div>
+            <div class="feedback-block">
+                <h3 style="color: var(--primary-dark); margin-top: 0; display: flex; align-items: center; gap: 10px;">
+                    <i class="fa-solid fa-clipboard-check" style="color: #22c55e;"></i> التوصيات والملاحظات التحليلية
+                </h3>
+                <p id="feedback-text" style="line-height: 1.8; color: #475569; font-size: 16px;">
+                    أظهرت إجاباتك توازناً ممتازاً بين المعرفة التقنية والمهارات الشخصية (Soft Skills). أسلوبك في طرح الأمثلة يعكس ثقة عالية وخبرة عملية واعدة تؤهلك لاجتياز أي مقابلة عمل حقيقية بكفاءة تامة.
+                </p>
+                <div style="text-align: center; margin-top: 30px;">
+                    <button class="primary" id="restart-btn" style="width: auto; padding: 14px 35px;"><i class="fa-solid fa-rotate-right"></i> إجراء مقابلة جديدة بوظيفة أخرى</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const startBtn = document.getElementById('start-btn');
+        const jobInput = document.getElementById('job-input');
+        const screenSetup = document.getElementById('screen-setup');
+        const screenInterview = document.getElementById('screen-interview');
+        const screenResults = document.getElementById('screen-results');
+        const roleNameTag = document.getElementById('role-name-tag');
+        const questionBox = document.getElementById('question-box');
+        const submitBtn = document.getElementById('submit-btn');
+        const qCounter = document.getElementById('q-counter');
+        const progressFill = document.getElementById('progress-fill');
+        const restartBtn = document.getElementById('restart-btn');
+
+        let currentQ = 1;
+        const totalQ = 8;
+        let jobTitle = '';
+
+        const sampleQuestions = [
+            "أهلاً بك. نود في البداية أن تحدثنا عن نفسك، وخلفيتك المهنية، وكيف قادتك مسيرتك للتقدم لهذه الوظيفة؟",
+            "ما هو أبرز إنجاز مهني حققته في مسيرتك وتعتبره نقطة تحول حقيقية بالنسبة لك؟",
+            "في بيئات العمل المتسارعة، كيف تتعامل مع ضغط العمل والمواعيد النهائية الحرجة دون التأثير على جودة الإنتاج؟",
+            "اذكر لنا موقفاً صعباً أو مشكلة معقدة واجهتك في عملك السابق، وكيف تعاملت معها بحكمة لتجاوزها؟",
+            "لماذا وقع اختيارك على مؤسستنا بالذات وما الذي يمكنك إضافته لفريق العمل لدينا؟",
+            "العمل الجماعي ركيزة أساسية لدينا؛ كيف تقيم قدرتك على التعاون والتنسيق مع أعضاء فريق ذوي خلفيات متنوعة؟",
+            "بالنظر إلى طموحك المهني، أين تري نفسك وتحديداً في هذا المجال خلال السنوات الخمس القادمة؟",
+            "وصلنا إلى ختام مقابلتنا الأولية؛ هل لديك أي استفسارات أو أسئلة ترغب في طرحها علينا؟"
+        ];
+
+        startBtn.addEventListener('click', () => {
+            jobTitle = jobInput.value.trim();
+            if(!jobTitle) {
+                document.getElementById('setup-error').innerText = 'الرجاء إدخال المسمى الوظيفي المستهدف لنتمكن من تخصيص الأسئلة.';
+                return;
+            }
+            document.getElementById('setup-error').innerText = '';
+            roleNameTag.innerText = jobTitle;
+            screenSetup.classList.add('hidden');
+            screenInterview.classList.remove('hidden');
+            loadQuestion();
+        });
+
+        function loadQuestion() {
+            if(currentQ <= totalQ) {
+                questionBox.innerText = sampleQuestions[currentQ - 1];
+                qCounter.innerText = `السؤال ${currentQ} من ${totalQ}`;
+                progressFill.style.width = `${(currentQ / totalQ) * 100}%`;
+            } else {
+                screenInterview.classList.add('hidden');
+                screenResults.classList.remove('hidden');
+            }
+        }
+
+        submitBtn.addEventListener('click', () => {
+            const ans = document.getElementById('answer-input').value.trim();
+            if(!ans) {
+                document.getElementById('interview-error').innerText = 'الرجاء كتابة إجابتك أولاً لكي تنتقل للجنة إلى السؤال التالي.';
+                return;
+            }
+            document.getElementById('interview-error').innerText = '';
+            document.getElementById('answer-input').value = '';
+            currentQ++;
+            loadQuestion();
+        });
+
+        restartBtn.addEventListener('click', () => {
+            currentQ = 1;
+            jobInput.value = '';
+            screenResults.classList.add('hidden');
+            screenSetup.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>

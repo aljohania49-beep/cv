@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>السيرة الذاتية - {{ full_name }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
+
+        :root {
+            --primary-dark: #004d25;
+            --primary-color: #006C35;
+            --accent-gold: #C5A059;
+            --text-main: #2C3E50;
+            --bg-sidebar: #F4F6F5;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: #eef2f3;
+            color: var(--text-main);
+            padding: 30px 0;
+        }
+
+        /* ورقة السيرة الذاتية بمقاس A4 حقيقي */
+        .cv-page {
+            width: 210mm;
+            min-height: 297mm;
+            background: #ffffff;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            display: flex;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* الجانب الأيمن (الشريط الجانبي للمعلومات والاتصال والمهارات) */
+        .cv-sidebar {
+            width: 35%;
+            background-color: var(--bg-sidebar);
+            padding: 40px 25px;
+            border-left: 3px solid var(--accent-gold);
+        }
+
+        .profile-img-container {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 25px auto;
+            border: 4px solid var(--accent-gold);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .profile-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .sidebar-section {
+            margin-bottom: 30px;
+        }
+
+        .sidebar-section h3 {
+            font-size: 16px;
+            color: var(--primary-dark);
+            border-bottom: 2px solid var(--accent-gold);
+            padding-bottom: 6px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .contact-item {
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            word-break: break-all;
+        }
+
+        .contact-item i {
+            color: var(--primary-color);
+            width: 16px;
+        }
+
+        .skills-list {
+            list-style: none;
+        }
+
+        .skills-list li {
+            background: #ffffff;
+            padding: 6px 12px;
+            margin-bottom: 6px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            border-right: 3px solid var(--primary-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+
+        /* الجانب الأيسر الرئيسي (النبذة، الخبرات، التعليم) */
+        .cv-main-content {
+            width: 65%;
+            padding: 40px 35px;
+        }
+
+        .cv-header-main {
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 20px;
+        }
+
+        .cv-header-main h1 {
+            font-size: 28px;
+            color: var(--primary-dark);
+            font-weight: 900;
+            margin-bottom: 5px;
+        }
+
+        .cv-header-main h2 {
+            font-size: 16px;
+            color: var(--accent-gold);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .main-section {
+            margin-bottom: 25px;
+        }
+
+        .main-section h3 {
+            font-size: 18px;
+            color: var(--primary-dark);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 5px;
+            margin-bottom: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .main-section h3 i {
+            color: var(--accent-gold);
+            font-size: 16px;
+        }
+
+        .main-section p {
+            font-size: 13.5px;
+            color: #444;
+            line-height: 1.7;
+            white-space: pre-line;
+        }
+
+        /* أزرار التحكم والطباعة خارج ورقة الـ A4 */
+        .action-bar {
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .btn-action {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,108,53,0.3);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .btn-action:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            margin-right: 10px;
+        }
+
+        /* إعدادات الطباعة وتحويل الملف لـ PDF بنفس التنسيق تماماً */
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+            }
+            .action-bar {
+                display: none;
+            }
+            .cv-page {
+                box-shadow: none;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="action-bar">
+        <button onclick="window.print()" class="btn-action">
+            <i class="fa-solid fa-file-pdf"></i> حفظ كملف PDF / طباعة فاخرة
+        </button>
+        <a href="/" class="btn-action btn-secondary">
+            <i class="fa-solid fa-arrow-right"></i> تعديل البيانات
+        </a>
+    </div>
+
+    <!-- نموذج ورقة السيرة الذاتية -->
+    <div class="cv-page">
+        
+        <!-- الشريط الجانبي -->
+        <div class="cv-sidebar">
+            {% if photo %}
+            <div class="profile-img-container">
+                <img src="{{ url_for('static', filename='uploads/' + photo) }}" alt="الصورة الشخصية">
+            </div>
+            {% else %}
+            <div class="profile-img-container" style="display: flex; align-items: center; justify-content: center; background: #e0e0e0; color: #777;">
+                <i class="fa-solid fa-user fa-3x"></i>
+            </div>
+            {% endif %}
+
+            <div class="sidebar-section">
+                <h3>معلومات الاتصال</h3>
+                <div class="contact-item"><i class="fa-solid fa-envelope"></i> {{ email }}</div>
+                <div class="contact-item"><i class="fa-solid fa-phone"></i> {{ phone }}</div>
+                <div class="contact-item"><i class="fa-solid fa-location-dot"></i> {{ address }}</div>
+            </div>
+
+            {% if skills %}
+            <div class="sidebar-section">
+                <h3>المهارات المهنية</h3>
+                <ul class="skills-list">
+                    {% for skill in skills.split(',') %}
+                    <li>{{ skill.strip() }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if languages %}
+            <div class="sidebar-section">
+                <h3>اللغات</h3>
+                <p style="font-size: 13px; color: #555;">{{ languages }}</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- المحتوى الرئيسي -->
+        <div class="cv-main-content">
+            <div class="cv-header-main">
+                <h1>{{ full_name }}</h1>
+                <h2>{{ job_title }}</h2>
+            </div>
+
+            {% if summary %}
+            <div class="main-section">
+                <h3><i class="fa-solid fa-circle-user"></i> نبذة تعريفية</h3>
+                <p>{{ summary }}</p>
+            </div>
+            {% endif %}
+
+            {% if experience %}
+            <div class="main-section">
+                <h3><i class="fa-solid fa-briefcase"></i> الخبرات العملية</h3>
+                <p>{{ experience }}</p>
+            </div>
+            {% endif %}
+
+            {% if education %}
+            <div class="main-section">
+                <h3><i class="fa-solid fa-graduation-cap"></i> التعليم والشهادات المهنية</h3>
+                <p>{{ education }}</p>
+            </div>
+            {% endif %}
+        </div>
+
+    </div>
+
+</body>
+</html>

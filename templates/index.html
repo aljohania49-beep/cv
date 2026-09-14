@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الاستاذ عبد الله الجهني | خبير الموارد البشرية والسيرة الذاتية</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* تنسيق الهيدر وأزرار التنقل المتجاوبة */
+        .main-header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .top-bar {
+            background-color: var(--primary-dark, #1e293b);
+            color: #fff;
+            padding: 8px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .top-bar-info {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--primary-dark, #1e293b);
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color:#fff;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: var(--accent-color, #2563eb);
+        }
+        .nav-btn {
+            background-color: var(--accent-color, #2563eb);
+            color: #fff !important;
+            padding: 8px 16px;
+            border-radius: 6px;
+        }
+
+        /* زر القائمة الجانبية للشاشات الصغيرة */
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--primary-dark, #1e293b);
+        }
+
+        /* تنسيق قسم مربعات الخيارات الرئيسية */
+        .services-selection-section {
+            max-width: 1100px;
+            margin: -50px auto 50px;
+            padding: 0 5%;
+            position: relative;
+            z-index: 10;
+        }
+        .selection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .selection-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .selection-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.15);
+            border-color: var(--accent-color, #2563eb);
+        }
+        .selection-icon {
+            font-size: 50px;
+            color: var(--accent-color, #2563eb);
+            margin-bottom: 20px;
+            background: rgba(37, 99, 235, 0.1);
+            width: 90px;
+            height: 90px;
+            line-height: 90px;
+            border-radius: 50%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .selection-card h3 {
+            font-size: 22px;
+            color: var(--primary-dark, #1e293b);
+            margin-bottom: 15px;
+        }
+        .selection-card p {
+            color: #64748b;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        .card-btn {
+            display: inline-block;
+            background-color: var(--accent-color, #2563eb);
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        .card-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* تنسيق الفوتر الغني بالمعلومات */
+        .main-footer {
+            background-color: #0f172a;
+            color: #cbd5e1;
+            padding: 50px 5% 20px;
+            margin-top: 50px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+        .footer-col h3 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 18px;
+            border-bottom: 2px solid var(--accent-color, #2563eb);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        .footer-col p, .footer-col ul {
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .footer-col ul li a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-col ul li a:hover {
+            color: #fff;
+            padding-right: 5px;
+        }
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .social-icons a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255,255,255,0.1);
+            color: #fff;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+        .social-icons a:hover {
+            background-color: var(--accent-color, #2563eb);
+        }
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            font-size: 13px;
+        }
+
+        /* الاستجابة للشاشات الصغيرة والجوال (فقط ضبط المقاسات والقائمة) */
+        @media (max-width: 992px) {
+            .menu-toggle {
+                display: block;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #ffffff;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                padding: 20px;
+                gap: 15px;
+                text-align: center;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .nav-links a {
+                width: 100%;
+            }
+            .top-bar {
+                flex-direction: column;
+                text-align: center;
+                gap: 5px;
+            }
+            .top-bar-info {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الهيدر المطور والمتجاوب -->
+    <header class="main-header">
+        <div class="top-bar">
+            <div class="top-bar-info">
+                <span><i class="fa-solid fa-envelope"></i> Aljohania49@gmail.com</span>
+                <span><i class="fa-solid fa-phone"></i> 0545532413</span>
+            </div>
+            <div>
+                <span><i class="fa-solid fa-location-dot"></i> المملكة العربية السعودية - المدينة المنورة</span>
+            </div>
+        </div>
+        <nav class="navbar">
+            <a href="#" class="logo"><i class="fa-solid fa-id-badge"></i> الأستاذ عبد الله الجهني</a>
+            <div class="menu-toggle" id="mobile-menu">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#">الرئيسية</a></li>
+                <li><a href="#builder">منصة السيرة الذاتية</a></li>
+                <li><a href="#services">خدمات التوظيف</a></li>
+                <li><a href="#contact">اتصل بنا</a></li>
+                <li><a href="#builder" class="nav-btn">ابدأ الآن</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-banner">
+        <div class="quran-verse">"وَقُلِ اعْمَلُوا فَسَيَرَى اللَّهُ عَمَلَكُمْ وَرَسُولُهُ وَالْمُؤْمِنُونَ"</div>
+        <h1>الأستاذ عبد الله الجهني</h1>
+        <p>منصة الخبير لصياغة السيرة الذاتية الاحترافية والتدريب على المقابلات الشخصية وفق معايير التوظيف الحديثة ATS.</p>
+        <a href="#services-grid" class="btn-main"><i class="fa-solid fa-wand-magic-sparkles"></i> اختر خدمتك المهنية</a>
+    </section>
+
+    <!-- قسم مربعات وأزرار اختيار الخدمات (صناعة سيرة ذاتية / المقابلة الشخصية) -->
+    <section id="services-grid" class="services-selection-section">
+        <div class="selection-grid">
+            <!-- مربع إنشاء السيرة الذاتية -->
+            <div class="selection-card">
+                <div class="selection-icon">
+                    <i class="fa-solid fa-file-lines"></i>
+                </div>
+                <h3>إنشاء سيرة ذاتية</h3>
+                <p>صمم سيرتك الذاتية الفاخرة والمتوافقة مع أنظمة الفرز الآلي (ATS) بخطوات بسيطة واحترافية.</p>
+                <a href="#builder" class="card-btn"><i class="fa-solid fa-arrow-left"></i> صمم سيرتك الآن</a>
+            </div>
+
+            <!-- مربع التدريب على المقابلات الشخصية (مربوط بـ Flask url_for) -->
+            <div class="selection-card">
+                <div class="selection-icon">
+                    <i class="fa-solid fa-comments"></i>
+                </div>
+                <h3>مقابلة شخصية احترافية</h3>
+                <p>تدرب على أهم أسئلة المقابلات الوظيفية واكتسب مهارات الاجتياز الناجح بثقة وكفاءة عالية.</p>
+                <a href="{{ url_for('cm') }}" class="card-btn"><i class="fa-solid fa-arrow-left"></i> ابدأ التدريب</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- نموذج بناء السيرة الذاتية -->
+    <section id="builder" class="cv-builder-section">
+        <div style="text-align: center; margin-bottom: 40px;">
+            <h2 style="color: var(--primary-dark); font-size: 32px;">أنشئ سيرتك الذاتية الفاخرة</h2>
+            <p style="color: #666;">قم بتعبئة الحقول أدناه، وأرفق صورتك الشخصية، واحصل على سيرة ذاتية جاهزة للطباعة والتحميل الفوري</p>
+        </div>
+
+        <div class="form-container">
+            <form action="/generate_cv" method="POST" enctype="multipart/form-data">
+                
+                <div class="form-group">
+                    <label><i class="fa-solid fa-image"></i> الصورة الشخصية (اختياري):</label>
+                    <input type="file" name="photo" accept="image/*" style="padding: 8px;">
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fa-solid fa-user"></i> الاسم الكامل:</label>
+                    <input type="text" name="full_name" placeholder="مثال: فيصل بن خالد العتيبي" required>
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fa-solid fa-briefcase"></i> المسمى الوظيفي المستهدف:</label>
+                    <input type="text" name="job_title" placeholder="مثال: أخصائي موارد بشرية وتنظيم إداري" required>
+                </div>
+
+                <div class="form-group" style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 250px;">
+                        <label><i class="fa-solid fa-envelope"></i> البريد الإلكتروني:</label>
+                        <input type="email" name="email" placeholder="name@example.com" required>
+                    </div>
+                    <div style="flex: 1; min-width: 250px;">
+                        <label><i class="fa-solid fa-phone"></i> رقم الجوال:</label>
+                        <input type="text" name="phone" placeholder="+966 5xxxxxxxx" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fa-solid fa-location-dot"></i> المدينة / المكان:</label>
+                    <input type="text" name="address" value="المملكة العربية السعودية - المدينة المنورة">
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fa-solid fa-id-card"></i> نبذة تعريفية مختصرة:</label>
+                    <textarea name="summary" rows="3" placeholder="اكتب ملخصاً احترافياً يبرز كفاءتك وخبرتك الكبرى..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fa-solid fa-building"></i> الخبرات العملية (الشركات والمسميات والفترات):</label>
+                    <textarea name="experience" rows="3" placeholder="مساعد موارد بشرية | شركة الأفق للتقنية (2023 - حتى الآن)&#10;- إدارة شؤون العاملين وإعداد العقود..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fa-solid fa-graduation-cap"></i> المؤهل العلمي والشهادات المهنية:</label>
+                    <textarea name="education" rows="2" placeholder="بكالوريوس إدارة أعمال - جامعة الملك سعود (2022)&#10;- شهادة محترف موارد بشرية معتمد (SHRM)"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fa-solid fa-star"></i> المهارات (مفصولة بفاصلة):</label>
+                    <input type="text" name="skills" placeholder="إدارة التوظيف، صياغة السياسات، حل المشكلات، العمل الجماعي">
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fa-solid fa-language"></i> اللغات:</label>
+                    <input type="text" name="languages" value="اللغة العربية (اللغة الأم)، اللغة الإنجليزية (مستوى متقدم احترافي)">
+                </div>
+
+                <button type="submit" class="btn-main" style="width: 100%; text-align: center; margin-top: 10px;">
+                    <i class="fa-solid fa-eye"></i> معاينة وتصدير السيرة الذاتية الاحترافية
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- قسم التدريب على المقابلات الشخصية السفلي (مربوط بـ Flask url_for أيضاً) -->
+    <section id="interview-section" style="max-width: 900px; margin: 60px auto; padding: 40px; background: #f8fafc; border-radius: 16px; text-align: center;">
+        <h2 style="color: var(--primary-dark); margin-bottom: 15px;"><i class="fa-solid fa-comments"></i> التدريب على المقابلات الشخصية</h2>
+        <p style="color: #64748b; margin-bottom: 25px;">احصل على جلسة تدريبية وتوجيهية مع الخبير لتعزيز ثقتك واجتياز المقابلات الوظيفية بكفاءة عالية.</p>
+        <a href="{{ url_for('cm') }}" class="btn-main">ابدأ التدريب الفوري</a>
+    </section>
+
+    <!-- الفوتر الغني بالمعلومات -->
+    <footer class="main-footer" id="contact">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>عن المنصة</h3>
+                <p>منصة احترافية بإشراف الأستاذ عبد الله الجهني، مختصة بتطوير المسار المهني، صياغة السيرات الذاتية المتوافقة مع نظام الفرز الآلي (ATS)، والتدريب على المقابلات الشخصية.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="#"><i class="fa-brands fa-telegram"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>روابط سريعة</h3>
+                <ul>
+                    <li><a href="#"><i class="fa-solid fa-angle-left"></i> الرئيسية</a></li>
+                    <li><a href="#builder"><i class="fa-solid fa-angle-left"></i> صانع السيرة الذاتية</a></li>
+                    <li><a href="{{ url_for('cm') }}"><i class="fa-solid fa-angle-left"></i> المقابلات الشخصية</a></li>
+                    <li><a href="#"><i class="fa-solid fa-angle-left"></i> سياسة الخصوصية</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>تواصل معنا</h3>
+                <p><i class="fa-solid fa-location-dot"></i> المملكة العربية السعودية - المدينة المنورة</p>
+                <p><i class="fa-solid fa-envelope"></i> Aljohania49@gmail.com</p>
+                <p><i class="fa-solid fa-phone"></i> 966545532413+</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>جميع الحقوق محفوظة © 2026 | الأستاذ عبد الله الجهني - خبير الموارد البشرية والسيرة الذاتية.</p>
+            <p style="margin-top: 5px; color: var(--accent-color); font-weight: 600;">بإشراف مباشر من خبير المسار المهني</p>
+        </div>
+    </footer>
+
+    <!-- سكربت تفعيل القائمة المتجاوبة للجوال والكمبيوتر -->
+    <script>
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+
+        if (mobileMenu && navLinks) {
+            mobileMenu.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+</html>

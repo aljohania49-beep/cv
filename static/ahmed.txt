@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
+
+:root {
+    --primary-color: #006C35; /* الأخضر السعودي الأصيل */
+    --primary-dark: #004d25;
+    --accent-color: #C5A059; /* ذهبي سعودي راقي */
+    --bg-light: #F8F9FA;
+    --text-color: #333333;
+    --white: #FFFFFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Cairo', sans-serif;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-color);
+    direction: rtl;
+    text-align: right;
+    line-height: 1.6;
+}
+
+/* الهيدر العلوي للمعلومات */
+header {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+    color: var(--white);
+    padding: 15px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.header-info span {
+    margin-left: 20px;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.header-info i {
+    color: var(--accent-color);
+}
+
+/* البنر الرئيسي وآية أو شعار الهوية */
+.hero-banner {
+    background: linear-gradient(rgba(0, 108, 53, 0.85), rgba(0, 77, 37, 0.9)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80') center/cover;
+    color: var(--white);
+    padding: 100px 20px;
+    text-align: center;
+    position: relative;
+    border-bottom: 5px solid var(--accent-color);
+}
+
+.hero-banner h1 {
+    font-size: 48px;
+    font-weight: 900;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.hero-banner .quran-verse {
+    font-size: 20px;
+    font-style: italic;
+    color: var(--accent-color);
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+.hero-banner p {
+    font-size: 18px;
+    max-width: 700px;
+    margin: 0 auto 35px auto;
+    opacity: 0.95;
+}
+
+.btn-main {
+    background-color: var(--accent-color);
+    color: var(--white);
+    padding: 14px 35px;
+    border: none;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(197, 160, 89, 0.4);
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-main:hover {
+    background-color: #b08d48;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(197, 160, 89, 0.6);
+}
+
+/* قسم خدمات الخبير */
+.services-section {
+    padding: 80px 10%;
+    text-align: center;
+}
+
+.services-section h2 {
+    font-size: 36px;
+    color: var(--primary-dark);
+    margin-bottom: 15px;
+}
+
+.services-section .subtitle {
+    color: #666;
+    margin-bottom: 50px;
+    font-size: 16px;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background: var(--white);
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    border-top: 4px solid var(--accent-color);
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0,108,53,0.1);
+}
+
+.card h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 22px;
+}
+
+/* قسم منشئ السيرة الذاتية التفاعلي */
+.cv-builder-section {
+    background-color: var(--white);
+    padding: 80px 10%;
+}
+
+.form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--bg-light);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* الفوتر */
+footer {
+    background-color: var(--primary-dark);
+    color: var(--white);
+    text-align: center;
+    padding: 30px;
+    font-size: 14px;
+    border-top: 4px solid var(--accent-color);
+}
