@@ -64,12 +64,29 @@ def generate_cv():
 # إتاحة ملف robots.txt لمحركات البحث
 @app.route('/robots.txt')
 def robots():
-    return send_from_directory('.', 'robots.txt')
+    return """User-agent: *
+Allow: /
 
-# إتاحة ملف sitemap.xml لمحركات البحث
+Sitemap: https://cv-wtzu.onrender.com/sitemap.xml
+""", 200, {'Content-Type': 'text/plain; charset=utf-8'}
+
+
 @app.route('/sitemap.xml')
 def sitemap():
-    return send_from_directory('.', 'sitemap.xml')
+    return """<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://cv-wtzu.onrender.com/</loc>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://cv-wtzu.onrender.com/cm</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+</urlset>
+""", 200, {'Content-Type': 'application/xml; charset=utf-8'}
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
