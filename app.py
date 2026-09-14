@@ -1,4 +1,4 @@
-```python
+
 from flask import Flask, render_template, request
 import os
 from werkzeug.utils import secure_filename
@@ -100,7 +100,6 @@ def sitemap():
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
-
     <url>
         <loc>https://cv-wtzu.onrender.com/cm</loc>
         <changefreq>weekly</changefreq>
