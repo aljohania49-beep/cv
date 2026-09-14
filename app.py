@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect, url_for
+```python
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 import os
 from werkzeug.utils import secure_filename
 import time
@@ -60,5 +61,16 @@ def generate_cv():
                            languages=languages,
                            photo=photo_filename)
 
+# إتاحة ملف robots.txt لمحركات البحث
+@app.route('/robots.txt')
+def robots():
+    return send_from_directory('.', 'robots.txt')
+
+# إتاحة ملف sitemap.xml لمحركات البحث
+@app.route('/sitemap.xml')
+def sitemap():
+    return send_from_directory('.', 'sitemap.xml')
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
+```
